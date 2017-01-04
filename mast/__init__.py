@@ -19,28 +19,28 @@ class MastSequence(object):
     name : sequence name column
     organism : organism mnenomic ID from self.name
     diagram : motif diagram column
-    gene_classification : 'MDM2'/'Corp'/'Other'
+    gene_classification : 'MDM2'/'Corp'/'other_motif4/other_no_motif4'
     """
 
     def __init__(self, name, diagram_string):
         self.name = name
         self.organism = name[name.find('_') + 1:]
         self.diagram = Diagram(diagram_string)
-        self.gene_classification = None
         self.__classify_like_gene()
 
     def __classify_like_gene(self):
         """Classify as MDM2 or Corp based on self.diagram"""
-        if (self.diagram.has_motif(1) and
-                self.diagram.has_motif(2) and
-                self.diagram.has_motif(3)):
-            self.gene_classification = 'MDM2'
-        elif (self.diagram.has_motif(1) and
-              not self.diagram.has_motif(2) and
-              not self.diagram.has_motif(3)):
-            self.gene_classification = 'Corp'
+        if self.diagram.motifs[0].num == 1:
+            if len(self.diagram.motifs) == 1:
+                self.gene_classification = 'Corp'
+            elif (len(self.diagram.motifs) >= 3 and
+                  self.diagram.motifs[1].num == 3 and
+                  self.diagram.motifs[2].num == 2):
+                self.gene_classification = 'MDM2'
+            else:
+                self.gene_classification = 'other_motif4'
         else:
-            self.gene_classification = 'Other'
+            self.gene_classification = 'other_no_motif4'
 
     def __repr__(self):
         return ('MastSequence(organism="{0.organism}",'
