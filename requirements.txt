@@ -1,0 +1,2 @@
+biopython
+-e git://github.com/zhoulab/uniprot-taxonomy.git#egg=uniprot_taxonomy
