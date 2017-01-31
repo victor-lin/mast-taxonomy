@@ -17,14 +17,14 @@ class MastSequence(object):
     Attributes
     ----------
     name : sequence name column
-    organism : organism mnenomic ID from self.name
+    organism_mnemonic : organism mnemonic ID from self.name
     diagram : motif diagram column
     gene_classification : 'MDM2'/'Corp'/'other_motif4/other_no_motif4'
     """
 
     def __init__(self, name, diagram_string):
         self.name = name
-        self.organism = name[name.find('_') + 1:]
+        self.organism_mnemonic = name[name.find('_') + 1:]
         self.diagram = Diagram(diagram_string)
         self.__classify_like_gene()
 
@@ -43,7 +43,7 @@ class MastSequence(object):
             self.gene_classification = 'other_no_motif4'
 
     def __repr__(self):
-        return ('MastSequence(organism="{0.organism}",'
+        return ('MastSequence(name="{0.name}",'
                 'diagram="{0.diagram}")'.format(self))
 
 
