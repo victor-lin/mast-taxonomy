@@ -30,10 +30,11 @@ class MastSequence(object):
 
     def __classify_like_gene(self):
         """Classify as MDM2 or Corp based on self.diagram"""
-        if self.diagram.motifs[0].num == 1:
+        if self.diagram.has_motif(1):
             if len(self.diagram.motifs) == 1:
                 self.gene_classification = 'Corp'
             elif (len(self.diagram.motifs) >= 3 and
+                  self.diagram.motifs[0].num == 1 and
                   self.diagram.motifs[1].num == 3 and
                   self.diagram.motifs[2].num == 2):
                 self.gene_classification = 'MDM2'
