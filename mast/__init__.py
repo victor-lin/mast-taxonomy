@@ -24,6 +24,7 @@ class MastSequence(object):
 
     def __init__(self, name, diagram_string):
         self.name = name
+        self.uniprot_accession = name[name.find('|') + 1:name.rfind('|')]
         self.organism_mnemonic = name[name.find('_') + 1:]
         self.diagram = Diagram(diagram_string)
         self.__classify_like_gene()
